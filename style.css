@@ -5,14 +5,13 @@ body{
 .flex-container{
     border: 1px solid black;
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row wrap-reverse;
     justify-content: space-between;
-    align-content: flex-start;
+    align-content: stretch;
     /* align-content: stretch; */
-    width: 80%;
-    height: 600px;
+    height: 520px;
     margin: 0 auto;
 /* justify-content me sirve para organizar donde estan los elementos en la caja */
 /* Flex direction --redirecciona el orden de visualizacion */
@@ -29,19 +28,21 @@ body{
     color: black;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    width: 120px;
+    line-height: 200px;
     text-align: center;
     margin: 5px;
 }
 
 .C1 {
     background-color: lightblue;
+    order: 2;
+    flex-grow: 1;
+    flex-basis: 70%;
+    /* Usar como width con porcentaje */
 }
 
 .C2{
     background-color: lightcoral;
-}
-
-.C3{
-    background-color: lightgreen;
+    order: 1;
+    flex-grow: 1;
 }
