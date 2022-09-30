@@ -28,7 +28,7 @@ def login():
         if loggued_user != None:
             if loggued_user.password:
                 login_user(loggued_user)
-                return redirect(url_for('home'))
+                return redirect(url_for('casita'))
             else:
                 flash("Contraseña invalida")
                 return render_template('auth/login.html')
