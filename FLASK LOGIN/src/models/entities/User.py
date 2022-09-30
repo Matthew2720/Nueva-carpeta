@@ -6,7 +6,7 @@ class User(UserMixin):
     def __init__(self,id,username,password,fullname="",rol=str) -> None:
         self.id = id
         self.username = username
-        self.password = generate_password_hash(password)
+        self.password = password
         self.fullname = fullname
         self.rol = rol
         
