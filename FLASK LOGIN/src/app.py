@@ -64,6 +64,20 @@ def admin():
     elif current_user.rol == '2':
         return redirect(url_for('logout'))
     
+@app.route('/busqueda',methods=['GET','POST'])
+@login_required
+def busqueda():
+    if request.method == 'POST':
+        parametro = request.form['busqueda']
+        if current_user.rol == '1':
+            encontradas = ModelUser.get_users_by_id(db,parametro)
+            print(encontradas)
+            return render_template('busqueda.html',encontradas = encontradas)
+    elif current_user.rol != '1':
+            return redirect(url_for('logout'))
+    return redirect(url_for('logout'))
+    
+    
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.register_error_handler(401,status_401)
