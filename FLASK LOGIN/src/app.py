@@ -1,6 +1,6 @@
-from flask import Flask,render_template,url_for,request,redirect,flash
+from flask import Flask,render_template,url_for,request,redirect,flash,session
 from config import *
-from flask_login import LoginManager,login_user,logout_user,login_required
+from flask_login import LoginManager,login_user,logout_user,login_required,current_user
 import pyodbc
 
 #Modelos y entidades
@@ -54,6 +54,14 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/admin')
+@login_required
+def admin():
+    if current_user.rol == '1':
+        return render_template('admin.html')
+    elif current_user.rol == '2':
+        return redirect(url_for('logout'))
+    
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.register_error_handler(401,status_401)
