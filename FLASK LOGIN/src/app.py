@@ -58,7 +58,9 @@ def logout():
 @login_required
 def admin():
     if current_user.rol == '1':
-        return render_template('admin.html')
+        encontradas = ModelUser.get_users(db)
+        print(encontradas)
+        return render_template('admin.html',encontradas = encontradas)
     elif current_user.rol == '2':
         return redirect(url_for('logout'))
     

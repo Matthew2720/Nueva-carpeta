@@ -45,3 +45,15 @@ class ModelUser():
         except Exception as ex:
             raise Exception(ex)
         
+    @classmethod
+    def get_users(self,db):
+        try:
+            cursor = db.cursor()
+            consulta = "SELECT * FROM USUARIOS"
+            cursor.execute(consulta)
+            encontradas = cursor.fetchall()
+            cursor.close()
+            return encontradas
+        except Exception as ex:
+            raise Exception(ex)
+        

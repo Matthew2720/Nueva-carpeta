@@ -5,5 +5,24 @@
 {% block body %}
 <h1>Bienvenido , {{ current_user.fullname }}</h1>
 Eres admin
+
+<table class="table table-dark table-striped">
+    <tr>
+        <td>ID</td>
+        <td>USUARIO</td>
+        <td>CONTRASEÑA</td>
+        <td>FULLNAME</td>
+        <td>ROL</td>
+    </tr>
+    {% for row in encontradas %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+    </tr>
+    {% endfor %}
+</table>
 <a class="btn btn-secondary" href="{{url_for('logout')}}">Logout</a>
 {% endblock %}
