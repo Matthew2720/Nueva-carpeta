@@ -1,4 +1,5 @@
 from .entities.User import User
+from werkzeug.security import generate_password_hash
 
 class ModelUser():
     
@@ -36,7 +37,8 @@ class ModelUser():
     def register(self,db,user):
         try:
             cursor = db.cursor()
-            consulta = "INSERT into USUARIOS (username,password,fullname,rol) VALUES ('{}','{}','{}','{}')".format(user.username,user.password,user.fullname,user.rol)
+            contrasena = generate_password_hash(user.password)
+            consulta = "INSERT into USUARIOS (username,password,fullname,rol) VALUES ('{}','{}','{}','{}')".format(user.username,contrasena,user.fullname,user.rol)
             cursor.execute(consulta)
             cursor.commit()
             cursor.close()
