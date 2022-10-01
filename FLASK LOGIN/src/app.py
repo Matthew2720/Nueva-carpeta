@@ -5,8 +5,8 @@ import pyodbc
 
 #Modelos y entidades
 
-from models.entities.User import User
-from models.ModelUser import ModelUser
+from models.entities.User import User,Veterinaria
+from models.ModelUser import ModelUser,ModelVeterinaria
 
 app = Flask(__name__)
 db = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + direccion_servidor+';DATABASE='+nombre_bd+';UID='+nombre_usuario+';PWD=' + password)
@@ -18,7 +18,17 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    return redirect(url_for('login'))
+    return redirect(url_for('loginV'))
+
+@app.route('/regVet',methods=['GET','POST'])
+def registroVet():
+    if request.method == 'POST':
+        veterinaria = Veterinaria(request.form['nombre_vet'],request.form['ciudad_vet'],request.form['nombre'],request.form['apellido'],request.form['documento'],request.form['telefono'],request.form['email'])
+        ModelVeterinaria.registrar_vet(db,veterinaria)
+        flash("Registro realizado")
+        return render_template('regVet.html')
+    else:    
+        return render_template('regVet.html')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -26,17 +36,26 @@ def login():
         user = User(0,request.form['username'],request.form['password'])
         loggued_user = ModelUser.login(db,user)
         if loggued_user != None:
-            if loggued_user.password:
-                login_user(loggued_user)
-                return redirect(url_for('home'))
+            centro = ModelVeterinaria.get_centro()
+            print(centro)
+            if loggued_user.veterinaria == centro:
+                if loggued_user.password:
+                    login_user(loggued_user)
+                    return redirect(url_for('home'))
+                else:
+                    flash("Contraseña invalida")
+                    return render_template('auth/login.html')
             else:
-                flash("Contraseña invalida")
+                flash("Centro invalido")
                 return render_template('auth/login.html')
         else:
             flash("Usuario no encontrado!")
             return render_template('auth/login.html')
     else:
-        return render_template('auth/login.html')
+        if ModelVeterinaria.get_centro() == None:
+            return redirect(url_for('loginV'))
+        else:
+            return render_template('auth/login.html')
 
 @app.route('/home', methods=['GET'])
 @login_required
@@ -59,7 +78,6 @@ def logout():
 def admin():
     if current_user.rol == '1':
         encontradas = ModelUser.get_users(db)
-        print(encontradas)
         return render_template('admin.html',encontradas = encontradas)
     elif current_user.rol == '2':
         return redirect(url_for('logout'))
@@ -76,7 +94,27 @@ def busqueda():
     elif current_user.rol != '1':
             return redirect(url_for('logout'))
     return redirect(url_for('logout'))
+
+@app.route('/loginV', methods=['GET','POST'])
+def loginV():
+    if request.method == 'POST':
+        veterinaria = Veterinaria(request.form['username'],"0","0","0","0","0","0")
+        loggued_vet = ModelVeterinaria.loginV(db,veterinaria)
+        if loggued_vet != None:
+            centro = loggued_vet.nombre_vet
+            ModelVeterinaria.set_centro(centro)
+            return redirect(url_for('login'))
+        else:
+            flash("Veterinaria no registrada")
+            redirect(url_for('loginV'))
+    return render_template('auth/login_vet.html')
+
+@app.route('/regUser',methods=['GET','POST'])
+def regUser():
+    return render_template('regUser.html')
     
+# Usuarioprueba = User(0,"Maria","Ma240404","Maria Rodriguez","1","Canes")
+# ModelUser.register(db,Usuarioprueba)
     
 if __name__ == '__main__':
     app.config.from_object(config['development'])
