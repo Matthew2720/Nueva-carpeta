@@ -1,8 +1,29 @@
-{% extends './base.html' %}
+{% extends './base2.html' %}
 
 {% block title %}Home{% endblock %}
 
-{% block body %}
+{% block content %}
 <h1>Bienvenido , {{ current_user.fullname }}</h1>
+{% if current_user.rol == '1'%}
+<h2>Tu rol es ADMINISTRADOR </h2>
+{% endif %}
+{% if current_user.rol == '2'%}
+<h2>Tu rol es RECEPCIONISTA </h2>
+{% endif %}
+{% if current_user.rol == '3'%}
+<h2>Tu rol es ESPECIALISTA </h2>
+{% endif %}
+
+{% with messages = get_flashed_messages() %} <!--Obtener los mensajes en una variable-->
+{% if messages %} <!--Si el mensaje no es nulo-->
+{% for message in messages%} <!--Recorre los mensajes emergentes-->
+<div class="alert alert-primary alert-dismissible" role="alert">
+    <strong> {{message}} </strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
 <a class="btn btn-secondary" href="{{url_for('logout')}}">Logout</a>
 {% endblock %}

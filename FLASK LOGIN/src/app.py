@@ -18,7 +18,7 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    return redirect(url_for('loginV'))
+    return render_template('index.html')
 
 @app.route('/regVet',methods=['GET','POST'])
 def registroVet():
@@ -26,9 +26,9 @@ def registroVet():
         veterinaria = Veterinaria(request.form['nombre_vet'],request.form['ciudad_vet'],request.form['nombre'],request.form['apellido'],request.form['documento'],request.form['telefono'],request.form['email'])
         ModelVeterinaria.registrar_vet(db,veterinaria)
         flash("Registro realizado")
-        return render_template('regVet.html')
+        return render_template('reg/regVet.html')
     else:    
-        return render_template('regVet.html')
+        return render_template('reg/regVet.html')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -77,10 +77,12 @@ def logout():
 @login_required
 def admin():
     if current_user.rol == '1':
-        encontradas = ModelUser.get_users(db)
+        centro = ModelVeterinaria.get_centro()
+        encontradas = ModelUser.get_users(db,centro)
         return render_template('admin.html',encontradas = encontradas)
     elif current_user.rol == '2':
-        return redirect(url_for('logout'))
+        flash('No tienes permisos para acceder a esta seccion.')
+        return redirect(url_for('home'))
     
 @app.route('/busqueda',methods=['GET','POST'])
 @login_required
@@ -88,12 +90,14 @@ def busqueda():
     if request.method == 'POST':
         parametro = request.form['busqueda']
         if current_user.rol == '1':
-            encontradas = ModelUser.get_users_by_id(db,parametro)
+            centro = ModelVeterinaria.get_centro()
+            encontradas = ModelUser.get_users_by_id(db,parametro,centro)
             print(encontradas)
             return render_template('busqueda.html',encontradas = encontradas)
     elif current_user.rol != '1':
-            return redirect(url_for('logout'))
-    return redirect(url_for('logout'))
+            flash('No tienes permisos para acceder a esta sesion')
+            return redirect(url_for('home'))
+    return render_template('busqueda.html')
 
 @app.route('/loginV', methods=['GET','POST'])
 def loginV():
@@ -103,15 +107,24 @@ def loginV():
         if loggued_vet != None:
             centro = loggued_vet.nombre_vet
             ModelVeterinaria.set_centro(centro)
-            return redirect(url_for('login'))
+            return render_template('auth/login.html',centro = centro)
         else:
             flash("Veterinaria no registrada")
             redirect(url_for('loginV'))
     return render_template('auth/login_vet.html')
 
 @app.route('/regUser',methods=['GET','POST'])
+@login_required
 def regUser():
-    return render_template('regUser.html')
+    return render_template('reg/regUser2.html')
+
+@app.route('/soporte',methods=['GET','POST'])
+def soporte():
+    return render_template('soporte.html')
+
+@app.route('/prueba')
+def prueba():
+    return render_template('home.html')
     
 # Usuarioprueba = User(0,"Maria","Ma240404","Maria Rodriguez","1","Canes")
 # ModelUser.register(db,Usuarioprueba)

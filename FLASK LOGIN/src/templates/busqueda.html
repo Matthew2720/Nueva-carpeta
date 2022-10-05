@@ -1,10 +1,12 @@
-{% extends './base.html' %}
+{% extends './base2.html' %}
 
 {% block title %}Home{% endblock %}
 
-{% block body %}
+{% block content %}
 <h1>Bienvenido , {{ current_user.fullname }}</h1>
-Eres admin
+<h2>Buscador de empleados</h2>
+
+<p>Esta funcion solo esta disponible para administradores.</p>
 
 <form method="POST" action="/busqueda" style="align-content:space-between">
     <input type="text" class="form-control" placeholder="Busqueda" name="busqueda" aria-label="Busqueda" aria-describedby="basic-addon2">
@@ -17,7 +19,6 @@ Eres admin
     <tr>
         <td>ID</td>
         <td>USUARIO</td>
-        <td>CONTRASEÑA</td>
         <td>FULLNAME</td>
         <td>ROL</td>
     </tr>
@@ -25,7 +26,6 @@ Eres admin
     <tr>
         <td>{{ row[0] }}</td>
         <td>{{ row[1] }}</td>
-        <td>{{ row[2] }}</td>
         <td>{{ row[3] }}</td>
         <td>{{ row[4] }}</td>
     </tr>

@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="{{ url_for ('static' , filename='css/style.css')}}">{% endblock %}
 
 {% block body %}
-<form class="form-signin" action="/login" method="POST">
+<img  id="fondo2" src="{{url_for('static', filename ='img/animales.webp')}}">
+<form class="form-signin lgn" action="/login" method="POST">
     {% with messages = get_flashed_messages() %} <!--Obtener los mensajes en una variable-->
     {% if messages %} <!--Si el mensaje no es nulo-->
     {% for message in messages%} <!--Recorre los mensajes emergentes-->
@@ -17,7 +18,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <h1 class="h1 mb-3 fw-normal">Empleados {{centro}}</h1>
 
     <div class="form-floating">
         <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
@@ -25,15 +26,18 @@
     </div>
     <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Contraseña</label>
     </div>
 
     <div class="checkbox mb-3">
         <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me"> Recuerdame
         </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesion</button>
+
+    
+    <a href="{{url_for('loginV')}}">Cambiar de centro</a>
+    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
 </form>
 {% endblock %}

@@ -46,10 +46,10 @@ class ModelUser():
             raise Exception(ex)
         
     @classmethod
-    def get_users(self,db):
+    def get_users(self,db,centro):
         try:
             cursor = db.cursor()
-            consulta = "SELECT * FROM USUARIOS"
+            consulta = "SELECT * FROM USUARIOS WHERE FNOMBREVET = '{}'".format(centro)
             cursor.execute(consulta)
             encontradas = cursor.fetchall()
             cursor.close()
@@ -58,10 +58,10 @@ class ModelUser():
             raise Exception(ex)
         
     @classmethod
-    def get_users_by_id(self,db,parametro):
+    def get_users_by_id(self,db,parametro,centro):
         try:
             cursor = db.cursor()
-            consulta = "SELECT * FROM USUARIOS where id = {}".format(parametro)
+            consulta = "SELECT * FROM USUARIOS where id = '{}' and fnombrevet = '{}'".format(parametro,centro)
             cursor.execute(consulta)
             encontradas = cursor.fetchall()
             cursor.close()
