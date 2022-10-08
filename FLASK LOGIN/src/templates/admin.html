@@ -3,7 +3,6 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Bienvenido , {{ current_user.fullname }}</h1>
 <h2>Buscador de empleados</h2>
 
 <p>Esta funcion solo esta disponible para administradores.</p>
@@ -21,6 +20,9 @@
         <td>USUARIO</td>
         <td>FULLNAME</td>
         <td>ROL</td>
+        <td>DIRECCION</td>
+        <td>EMAIL</td>
+        <td>TELEFONO</td>
     </tr>
     {% for row in encontradas %}
     <tr>
@@ -28,9 +30,11 @@
         <td>{{ row[1] }}</td>
         <td>{{ row[3] }}</td>
         <td>{{ row[4] }}</td>
+        <td>{{ row[6] }}</td>
+        <td>{{ row[7] }}</td>
+        <td>{{ row[8] }}</td>
     </tr>
     {% endfor %}
 </table>
 <a class="btn btn-info" href="{{url_for('regUser')}}">Registrar</a>
-<a class="btn btn-secondary" href="{{url_for('logout')}}">Logout</a>
 {% endblock %}

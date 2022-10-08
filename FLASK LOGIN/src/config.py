@@ -13,6 +13,6 @@ config = {
 }
 
 direccion_servidor = 'DESKTOP-F9S5AFJ'
-nombre_bd = 'FLASKLOGIN'
+nombre_bd = 'FILEPET'
 nombre_usuario = 'sa'
 password = '123456'

@@ -19,11 +19,10 @@
 {% for message in messages%} <!--Recorre los mensajes emergentes-->
 <div class="alert alert-primary alert-dismissible" role="alert">
     <strong> {{message}} </strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   <a type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" href="{{url_for('home')}}"><a>
 </div>
 {% endfor %}
 {% endif %}
 {% endwith %}
 
-<a class="btn btn-secondary" href="{{url_for('logout')}}">Logout</a>
 {% endblock %}

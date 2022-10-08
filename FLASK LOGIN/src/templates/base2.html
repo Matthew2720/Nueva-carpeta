@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"/><!--Este normalize busca que la pagina se vea igual por defecto entodos los navegadores-->
 </head>
  
-<body>
+<body >
+  <!-- style="background-image: url(../static/img/background2.png); background-size:cover;opacity:1;" -->
 <!-- Creo que aqui inicia la base-->
 <header id="header">
   <nav id="cabeza" class="navbar navbar-expand-sm navbar-light">
@@ -44,17 +45,17 @@
     <!--MODIFICACION COLUMNAS-->
     <div class="Caja C1">
         <nav id="lista" class="navbar navbar-expand-sm btn-group-vertical">
-            <a class="btn btn-dark" href="#">Facturacion</a>
-            <a class="btn btn-dark" href="#">Clientes</a>
-            <a class="btn btn-dark" href="{{url_for('admin')}}">Colegas</a>
-            <a class="btn btn-dark">Atencion Medica</a>
-            <a class="btn btn-dark">Mi agenda</a>
-            <a class="btn btn-dark">Guarderia</a>
-            <a class="btn btn-dark">Hospitalizacion</a>
-            <a class="btn btn-dark">Sala de belleza</a>
-            <a class="btn btn-dark">Productos/servicios</a>
-            <a class="btn btn-dark">Inventario</a>
-            <a class="btn btn-dark">Informes</a>
+            <a class="btn btn-darki" href="#">Facturacion</a>
+            <a class="btn btn-darki" href="{{url_for('regCliente')}}">Clientes</a>
+            <a class="btn btn-darki" href="{{url_for('admin')}}">Colegas</a>
+            <a class="btn btn-darki">Atencion Medica</a>
+            <a class="btn btn-darki">Mi agenda</a>
+            <a class="btn btn-darki">Guarderia</a>
+            <a class="btn btn-darki">Hospitalizacion</a>
+            <a class="btn btn-darki">Sala de belleza</a>
+            <a class="btn btn-darki">Productos/servicios</a>
+            <a class="btn btn-darki">Inventario</a>
+            <a class="btn btn-darki">Informes</a>
         </nav>
     </div>
     <div class="Caja C2">
@@ -67,7 +68,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
-
-</body>
+<img class="img" src="{{url_for('static',filename='img/background1.png')}}"
 </body>
 </html>

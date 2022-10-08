@@ -1,0 +1,54 @@
+{% extends "base2.html" %}
+
+{% block title %}Registrar cliente{% endblock %}
+{% block customCss %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/regUser.css')}}"> {% endblock %}
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+<!--Obtener los mensajes en una variable-->
+{% if messages %}
+<!--Si el mensaje no es nulo-->
+{% for message in messages%}
+<!--Recorre los mensajes emergentes-->
+<div class="alert alert-primary alert-dismissible" role="alert">
+    <strong> {{message}} </strong>
+    <a type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" href="{{url_for('regCliente')}}"><a>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+<form action='/busquedaCliente' method="POST">
+        <div class="item primero">
+            <label id="labeldeBuscar">Buscar cliente</label>
+            <input class="input" name="idBusqueda" type="text" placeholder="Documento" required>
+            <input type="submit" class="btn btn-info" value="Buscar">
+        </div>
+</form>    
+<form form action="/regCliente" method="POST">
+        <div class="item segundo">
+            <h2>Creacion cliente</h2>
+            <label>Documento</label>
+            <input class="input" name="documento" type="text" placeholder="Documento" required>
+            <label>Nombre</label>
+            <input class="input" name="fullname" type="text" placeholder="Nombre completo" required>
+        </div>
+        <div class="item">
+            <label>Direccion</label>
+            <input class="input" name="direccion" type="text" placeholder="direccion" required>
+            <label>Email</label>
+            <input class="input" name="email" type="email" placeholder="correo" required>
+        </div>
+        <div class="item">
+            <label>Telefono</label>
+            <input class="input" name="telefono" type="text" placeholder="Telefono" required>
+            <input type="submit" class="btn btn-info">
+        </div>
+</form>
+<div>
+
+        {% endblock %}

@@ -11,7 +11,7 @@ class ModelUser():
             cursor.execute(consulta)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3],row[4],row[5])
+                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3],row[4],row[5],row[6],row[7],row[8])
                 return user
             else:
                 return None
@@ -38,7 +38,7 @@ class ModelUser():
         try:
             cursor = db.cursor()
             contrasena = generate_password_hash(user.password)
-            consulta = "INSERT into USUARIOS (username,password,fullname,rol,fnombrevet) VALUES ('{}','{}','{}','{}','{}')".format(user.username,contrasena,user.fullname,user.rol,user.veterinaria)
+            consulta = "INSERT into USUARIOS (id,username,password,fullname,rol,fnombrevet,direccion,email,telefono) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}')".format(user.id,user.username,contrasena,user.fullname,user.rol,user.veterinaria,user.direccion,user.email,user.telefono)
             cursor.execute(consulta)
             cursor.commit()
             cursor.close()
@@ -58,10 +58,10 @@ class ModelUser():
             raise Exception(ex)
         
     @classmethod
-    def get_users_by_id(self,db,parametro,centro):
+    def get_users_by_id(self,db,id,centro):
         try:
             cursor = db.cursor()
-            consulta = "SELECT * FROM USUARIOS where id = '{}' and fnombrevet = '{}'".format(parametro,centro)
+            consulta = "SELECT * FROM USUARIOS where id = '{}' and fnombrevet = '{}'".format(id,centro)
             cursor.execute(consulta)
             encontradas = cursor.fetchall()
             cursor.close()
