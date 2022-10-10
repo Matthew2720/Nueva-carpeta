@@ -20,5 +20,3 @@ class Cliente(UserMixin):
         self.direccion = direccion
         self.email = email
         self.telefono = telefono
-        
-help(Cliente.__init__)
